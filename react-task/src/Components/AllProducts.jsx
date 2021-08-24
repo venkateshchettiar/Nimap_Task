@@ -10,7 +10,11 @@ const AllProducts = () => {
   const [color, setColor] = useState([]);
   const [material, setMaterial] = useState([]);
   const dispatch = useDispatch();
-  const data = useSelector((state) => state.AllProductData.allProducts);
+  var data = useSelector((state) => state.AllProductData.allProducts);
+  const list = useSelector((state) => state.AllMatColData.matCol);
+  if (list && list.length !== 0) {
+    data = list;
+  }
   useEffect(() => {
     dispatch(getAllProductAction());
     Axios.get(
@@ -21,7 +25,6 @@ const AllProducts = () => {
       "https://api.sheety.co/af35b536915ec576818d468cf2a6505c/reactjsTest/material"
     ).then((response) => setMaterial(response.data.material));
   }, []);
-
   return (
     <div>
       <div>
@@ -34,7 +37,7 @@ const AllProducts = () => {
         </div>
         <div className="flex-right">
           <div>
-            <MainContent data={data} />
+            <MainContent data={data} color={color} />
           </div>
         </div>
       </div>

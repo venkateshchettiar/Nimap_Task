@@ -1,19 +1,21 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getMatColAction } from "./../Redux/Action/Action";
 
 const Sidebar = (props) => {
   const { color, material } = props;
+  const [colo, setColo] = useState("");
+  const [mate, setMate] = useState("");
+  const dispatch = useDispatch();
   const data = useSelector((state) => state.AllProductData.allProducts);
-  const arr = [];
-  const handleMaterial = (tag) => {
-    arr.push(tag.id);
-    data.filter((item) => arr.includes(item.materialId));
+  const handleMaterial = () => {
+    dispatch(getMatColAction(data, { color: colo, material: mate }));
   };
 
-  const handleColor = (tag) => {
-    arr.push(tag.id);
-    data.filter((item) => arr.includes(item.colorId));
-  };
+  useEffect(() => {
+    handleMaterial();
+  }, [colo, mate]);
+
   return (
     <div>
       <div>
@@ -34,7 +36,10 @@ const Sidebar = (props) => {
             <li key={tag.id}>
               <button
                 className="bt bg-transparent mt-1"
-                onClick={() => handleMaterial(tag)}
+                onClick={() => {
+                  setMate(tag.id);
+                }}
+                style={{ color: tag.id === mate ? "blue" : "#000" }}
               >
                 {tag.name}
               </button>
@@ -50,7 +55,10 @@ const Sidebar = (props) => {
             <li key={tag.id}>
               <button
                 className="bt bg-transparent mt-1"
-                onClick={() => handleColor(tag)}
+                style={{ color: tag.id === colo ? "blue" : "#000" }}
+                onClick={() => {
+                  setColo(tag.id);
+                }}
               >
                 {tag.name}
               </button>

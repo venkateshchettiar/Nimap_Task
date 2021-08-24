@@ -9,7 +9,6 @@ export const AddToCart = () => {
 
 export const AddToCartAction = () => {
   return async (dispatch) => {
-    console.log("AddToCart");
     dispatch(AddToCart());
   };
 };

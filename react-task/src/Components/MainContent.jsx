@@ -1,20 +1,57 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Card } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { AddToCartAction } from "../Redux/Action/AddToCartAction";
+import Axios from "axios";
 
 const MainContent = (props) => {
+  const { color, data } = props;
+  const [colors, setColors] = useState([]);
   const dispatch = useDispatch();
 
   const handleAdd = (e) => {
     e.preventDefault();
-    console.log("object1");
     dispatch(AddToCartAction());
   };
 
+  useEffect(() => {
+    Axios.get(
+      "https://api.sheety.co/af35b536915ec576818d468cf2a6505c/reactjsTest/colors"
+    ).then((response) => {
+      console.log(response.data.colors);
+    });
+  });
+
+  const func = (id) => {
+    if (id == 2) {
+      return <p style={{ marginRight: "15px" }}>black</p>;
+    } else if (id == 3) {
+      return <p style={{ marginRight: "15px" }}>red</p>;
+    } else if (id == 4) {
+      return <p style={{ marginRight: "15px" }}>yellow</p>;
+    } else if (id == 5) {
+      return <p style={{ marginRight: "15px" }}>green</p>;
+    } else if (id == 6) {
+      return <p style={{ marginRight: "15px" }}>blue</p>;
+    }
+  };
+
+  const funct = (id) => {
+    if (id == 2) {
+      return <p style={{ marginRight: "15px" }}>cotton</p>;
+    } else if (id == 3) {
+      return <p style={{ marginRight: "15px" }}>leather</p>;
+    } else if (id == 4) {
+      return <p style={{ marginRight: "15px" }}>lycra</p>;
+    } else if (id == 5) {
+      return <p style={{ marginRight: "15px" }}>plastic</p>;
+    } else if (id == 6) {
+      return <p style={{ marginRight: "15px" }}>polyester</p>;
+    }
+  };
   return (
     <div className="grid">
-      {props.data.map((user) => (
+      {data.map((user) => (
         <Card key={user.id} style={{ width: "350px", height: "auto" }}>
           <div className="img__wrap">
             <Card.Img variant="top" src={user.image} className="img" />
@@ -25,8 +62,8 @@ const MainContent = (props) => {
           <Card.Body>
             <Card.Title>{user.name}</Card.Title>
             <div className="d-flex">
-              <button className="bt bg-transparent">Black</button>
-              <button className="bt bg-transparent">Cotton</button>
+              <p>{func(user.colorId)}</p>
+              <p>{funct(user.materialId)}</p>
             </div>
             <div className="mt-2">
               <h5>INR {user.price}</h5>
