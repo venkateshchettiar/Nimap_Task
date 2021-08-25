@@ -22,33 +22,33 @@ const MainContent = (props) => {
     });
   });
 
-  // const func = (id) => {
-  //   if (id == 2) {
-  //     return <p style={{ marginRight: "15px" }}>black</p>;
-  //   } else if (id == 3) {
-  //     return <p style={{ marginRight: "15px" }}>red</p>;
-  //   } else if (id == 4) {
-  //     return <p style={{ marginRight: "15px" }}>yellow</p>;
-  //   } else if (id == 5) {
-  //     return <p style={{ marginRight: "15px" }}>green</p>;
-  //   } else if (id == 6) {
-  //     return <p style={{ marginRight: "15px" }}>blue</p>;
-  //   }
-  // };
+  const func = (id) => {
+    if (id == 2) {
+      return <p style={{ marginRight: "15px" }}>black</p>;
+    } else if (id == 3) {
+      return <p style={{ marginRight: "15px" }}>red</p>;
+    } else if (id == 4) {
+      return <p style={{ marginRight: "15px" }}>yellow</p>;
+    } else if (id == 5) {
+      return <p style={{ marginRight: "15px" }}>green</p>;
+    } else {
+      return <p style={{ marginRight: "15px" }}>blue</p>;
+    }
+  };
 
-  // const funct = (id) => {
-  //   if (id == 2) {
-  //     return <p style={{ marginRight: "15px" }}>cotton</p>;
-  //   } else if (id == 3) {
-  //     return <p style={{ marginRight: "15px" }}>leather</p>;
-  //   } else if (id == 4) {
-  //     return <p style={{ marginRight: "15px" }}>lycra</p>;
-  //   } else if (id == 5) {
-  //     return <p style={{ marginRight: "15px" }}>plastic</p>;
-  //   } else if (id == 6) {
-  //     return <p style={{ marginRight: "15px" }}>polyester</p>;
-  //   }
-  // };
+  const funct = (id) => {
+    if (id == 2) {
+      return <p style={{ marginRight: "15px" }}>cotton</p>;
+    } else if (id == 3) {
+      return <p style={{ marginRight: "15px" }}>leather</p>;
+    } else if (id == 4) {
+      return <p style={{ marginRight: "15px" }}>lycra</p>;
+    } else if (id == 5) {
+      return <p style={{ marginRight: "15px" }}>plastic</p>;
+    } else {
+      return <p style={{ marginRight: "15px" }}>polyester</p>;
+    }
+  };
   return (
     <div className="grid">
       {data.map((user) => (
@@ -62,10 +62,11 @@ const MainContent = (props) => {
           <Card.Body>
             <Card.Title>{user.name}</Card.Title>
             <div className="d-flex">
-              <p style={{ marginRight: "15px" }}>Black</p>
-              <p style={{ marginRight: "15px" }}>Yellow</p>
-              {/* <p>{func(user.colorId)}</p>
-              <p>{funct(user.materialId)}</p> */}
+              {/* <p style={{ marginRight: "15px" }}>Black</p> */}
+              <p>{func(user.colorId)}</p>
+              {/* <p style={{ marginRight: "15px" }}>cotton</p> */}
+
+              <p>{funct(user.materialId)}</p>
             </div>
             <div className="mt-2">
               <h5>INR {user.price}</h5>

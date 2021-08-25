@@ -30,7 +30,9 @@ const Sidebar = (props) => {
       </div>
       <div>
         <h5>Materials</h5>
-        <h5>All</h5>
+        <button className="bt bg-transparent mt-1" style={{ fontSize: "20px" }}>
+          All
+        </button>
         <ul>
           {material.map((tag) => (
             <li key={tag.id}>
