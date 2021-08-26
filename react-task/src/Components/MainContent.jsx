@@ -7,6 +7,7 @@ import Axios from "axios";
 const MainContent = (props) => {
   const { color, data } = props;
   const [colors, setColors] = useState([]);
+  const [material, setMaterial] = useState([]);
   const dispatch = useDispatch();
 
   const handleAdd = (e) => {
@@ -18,37 +19,13 @@ const MainContent = (props) => {
     Axios.get(
       "https://api.sheety.co/af35b536915ec576818d468cf2a6505c/reactjsTest/colors"
     ).then((response) => {
-      console.log(response.data.colors);
+      setColors(response.data.colors);
     });
-  });
+    Axios.get(
+      "https://api.sheety.co/af35b536915ec576818d468cf2a6505c/reactjsTest/material"
+    ).then((response) => setMaterial(response.data.material));
+  }, []);
 
-  const func = (id) => {
-    if (id == 2) {
-      return <p style={{ marginRight: "15px" }}>black</p>;
-    } else if (id == 3) {
-      return <p style={{ marginRight: "15px" }}>red</p>;
-    } else if (id == 4) {
-      return <p style={{ marginRight: "15px" }}>yellow</p>;
-    } else if (id == 5) {
-      return <p style={{ marginRight: "15px" }}>green</p>;
-    } else {
-      return <p style={{ marginRight: "15px" }}>blue</p>;
-    }
-  };
-
-  const funct = (id) => {
-    if (id == 2) {
-      return <p style={{ marginRight: "15px" }}>cotton</p>;
-    } else if (id == 3) {
-      return <p style={{ marginRight: "15px" }}>leather</p>;
-    } else if (id == 4) {
-      return <p style={{ marginRight: "15px" }}>lycra</p>;
-    } else if (id == 5) {
-      return <p style={{ marginRight: "15px" }}>plastic</p>;
-    } else {
-      return <p style={{ marginRight: "15px" }}>polyester</p>;
-    }
-  };
   return (
     <div className="grid">
       {data.map((user) => (
@@ -62,11 +39,16 @@ const MainContent = (props) => {
           <Card.Body>
             <Card.Title>{user.name}</Card.Title>
             <div className="d-flex">
-              {/* <p style={{ marginRight: "15px" }}>Black</p> */}
-              <p>{func(user.colorId)}</p>
-              {/* <p style={{ marginRight: "15px" }}>cotton</p> */}
-
-              <p>{funct(user.materialId)}</p>
+              {colors.map((m) => {
+                if (m.id == user.colorId) {
+                  return <p style={{ marginRight: "15px" }}>{m.name}</p>;
+                }
+              })}
+              {material.map((m) => {
+                if (m.id == user.materialId) {
+                  return <p style={{ marginRight: "15px" }}>{m.name}</p>;
+                }
+              })}
             </div>
             <div className="mt-2">
               <h5>INR {user.price}</h5>
